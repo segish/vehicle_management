@@ -133,7 +133,6 @@ const VehicleManagement = () => {
                 renderCell: (params) => (
                     <Box sx={{ display: 'flex', gap: 1 }}>
                         {isMobile || isTablet ? (
-                            // Mobile/Tablet view - icon only buttons
                             <>
                                 <IconButton
                                     color="primary"
@@ -151,7 +150,6 @@ const VehicleManagement = () => {
                                 </IconButton>
                             </>
                         ) : (
-                            // Desktop view - buttons with text
                             <>
                                 <Button
                                     color="primary"
@@ -177,7 +175,7 @@ const VehicleManagement = () => {
         ];
 
         return baseColumns;
-    }, [isMobile, isTablet, handleEdit, handleDeleteClick]); // Added missing dependencies
+    }, [isMobile, isTablet, handleEdit, handleDeleteClick]); 
 
     useEffect(() => {
         fetchVehicles();
@@ -226,7 +224,6 @@ const VehicleManagement = () => {
             registrationNumber: ''
         };
         let isValid = true;
-        // name validation
         if (!formData.Name) {
             tempErrors.Name = 'Name is required';
             isValid = false;
@@ -234,8 +231,6 @@ const VehicleManagement = () => {
             tempErrors.Name = 'Name must be at least 2 characters';
             isValid = false;
         }
-
-        // status validation
         if (!formData.status) {
             tempErrors.status = 'status is required';
             isValid = false;
@@ -243,7 +238,6 @@ const VehicleManagement = () => {
             tempErrors.status = 'status must be at least 2 characters';
             isValid = false;
         }
-        // Make validation
         if (!formData.make) {
             tempErrors.make = 'Make is required';
             isValid = false;
@@ -251,8 +245,6 @@ const VehicleManagement = () => {
             tempErrors.make = 'Make must be at least 2 characters';
             isValid = false;
         }
-
-        // Model validation
         if (!formData.model) {
             tempErrors.model = 'Model is required';
             isValid = false;
@@ -260,14 +252,10 @@ const VehicleManagement = () => {
             tempErrors.model = 'Model must be at least 2 characters';
             isValid = false;
         }
-
-        // Year validation
         if (!formData.year) {
             tempErrors.year = 'Year is required';
             isValid = false;
         }
-
-        // Color validation
         if (!formData.color) {
             tempErrors.color = 'Color is required';
             isValid = false;
@@ -275,8 +263,6 @@ const VehicleManagement = () => {
             tempErrors.color = 'Color must be at least 3 characters';
             isValid = false;
         }
-
-        // Registration Number validation
         if (!formData.registrationNumber) {
             tempErrors.registrationNumber = 'Registration Number is required';
             isValid = false;
