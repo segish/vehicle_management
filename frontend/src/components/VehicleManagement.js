@@ -47,13 +47,57 @@ const VehicleManagement = () => {
         registrationNumber: ''
     });
     const [editing, setEditing] = useState(null);
+
+    const handleDeleteClick = useCallback((vehicle) => {
+        setSelectedVehicle(vehicle);
+        setDeleteConfirmOpen(true);
+    }, []);
+
+    const handleEdit = useCallback((vehicle) => {
+        setEditing(vehicle._id);
+        setFormData({
+            make: vehicle.make,
+            model: vehicle.model,
+            year: vehicle.year,
+            color: vehicle.color,
+            registrationNumber: vehicle.registrationNumber
+        });
+        setOpen(true);
+    }, []);
     const getColumns = useCallback(() => {
         const baseColumns = [
-            { field: 'make', headerName: 'Make', flex: 1, minWidth: 150, },
-            { field: 'model', headerName: 'Model', flex: 1, minWidth: 150, },
-            { field: 'year', headerName: 'Year', flex: 1, minWidth: 110, },
-            { field: 'color', headerName: 'Color', flex: 1, minWidth: 120, hide: isMobile, },
-            { field: 'registrationNumber', headerName: 'Registration', flex: 1, minWidth: 150, hide: isMobile, },
+            {
+                field: 'make',
+                headerName: 'Make',
+                flex: 1,
+                minWidth: 100,
+            },
+            {
+                field: 'model',
+                headerName: 'Model',
+                flex: 1,
+                minWidth: 100,
+            },
+            {
+                field: 'year',
+                headerName: 'Year',
+                flex: 1,
+                minWidth: 80,
+            },
+            {
+                field: 'color',
+                headerName: 'Color',
+                flex: 1,
+                minWidth: 90,
+                hide: isMobile,
+            },
+            {
+                field: 'registrationNumber',
+                headerName: 'Registration',
+                flex: 1,
+                minWidth: 120,
+                hide: isMobile,
+            },
             {
                 field: 'actions',
                 headerName: 'Actions',
@@ -64,7 +108,7 @@ const VehicleManagement = () => {
                 renderCell: (params) => (
                     <Box sx={{ display: 'flex', gap: 1 }}>
                         {isMobile || isTablet ? (
-                            // Mobile view - icon only buttons
+                            // Mobile/Tablet view - icon only buttons
                             <>
                                 <IconButton
                                     color="primary"
@@ -108,7 +152,7 @@ const VehicleManagement = () => {
         ];
 
         return baseColumns;
-    }, [isMobile]);
+    }, [isMobile, isTablet, handleEdit, handleDeleteClick]); // Added missing dependencies
 
     useEffect(() => {
         fetchVehicles();
@@ -223,10 +267,6 @@ const VehicleManagement = () => {
         }
     };
 
-    const handleDeleteClick = (vehicle) => {
-        setSelectedVehicle(vehicle);
-        setDeleteConfirmOpen(true);
-    };
 
     const handleDeleteConfirm = async () => {
         setIsDeleting(true);
@@ -247,11 +287,6 @@ const VehicleManagement = () => {
         setSelectedVehicle(null);
     };
 
-    const handleEdit = (vehicle) => {
-        setEditing(vehicle._id);
-        setFormData(vehicle);
-        handleOpen();
-    };
 
     return (
         <Box className={isMobile ? "mx-auto p-1":"mx-auto p-4"}>
