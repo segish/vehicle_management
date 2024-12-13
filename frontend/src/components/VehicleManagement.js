@@ -49,11 +49,11 @@ const VehicleManagement = () => {
     const [editing, setEditing] = useState(null);
     const getColumns = useCallback(() => {
         const baseColumns = [
-            { field: 'make', headerName: 'Make', flex: 1, minWidth: 100, },
-            { field: 'model', headerName: 'Model', flex: 1, minWidth: 100, },
-            { field: 'year', headerName: 'Year', flex: 1, minWidth: 80, },
-            { field: 'color', headerName: 'Color', flex: 1, minWidth: 90, hide: isMobile, },
-            { field: 'registrationNumber', headerName: 'Registration', flex: 1, minWidth: 120, hide: isMobile, },
+            { field: 'make', headerName: 'Make', flex: 1, minWidth: 150, },
+            { field: 'model', headerName: 'Model', flex: 1, minWidth: 150, },
+            { field: 'year', headerName: 'Year', flex: 1, minWidth: 110, },
+            { field: 'color', headerName: 'Color', flex: 1, minWidth: 120, hide: isMobile, },
+            { field: 'registrationNumber', headerName: 'Registration', flex: 1, minWidth: 150, hide: isMobile, },
             {
                 field: 'actions',
                 headerName: 'Actions',
@@ -63,7 +63,7 @@ const VehicleManagement = () => {
                 filterable: false,
                 renderCell: (params) => (
                     <Box sx={{ display: 'flex', gap: 1 }}>
-                        {isMobile ? (
+                        {isMobile || isTablet ? (
                             // Mobile view - icon only buttons
                             <>
                                 <IconButton
@@ -223,7 +223,6 @@ const VehicleManagement = () => {
         }
     };
 
-    // Delete confirmation handlers
     const handleDeleteClick = (vehicle) => {
         setSelectedVehicle(vehicle);
         setDeleteConfirmOpen(true);
@@ -255,9 +254,9 @@ const VehicleManagement = () => {
     };
 
     return (
-        <Box className="container mx-auto p-4">
-            <Typography variant="h4" sx={{ color: 'text.primary', mb: 4 }}>
-                Vehicle Management System
+        <Box className={isMobile ? "mx-auto p-1":"mx-auto p-4"}>
+            <Typography className='flex justify-center items-center' variant="h4" sx={{ color: 'text.primary', mb: 4 }}>
+                {isMobile? "VMS":"Vehicle Management System"}
             </Typography>
 
             <Box sx={{
@@ -362,7 +361,11 @@ const VehicleManagement = () => {
                 </DialogTitle>
                 <form onSubmit={handleSubmit}>
                     <DialogContent>
-                        <Box className="space-y-4">
+                        <Box sx={{
+                            display: 'grid',
+                            gap: 2,
+                            gridTemplateColumns: isTablet ? '1fr' : '1fr 1fr',
+                        }}>
                             <TextField
                                 label="Make"
                                 value={formData.make}
@@ -441,7 +444,7 @@ const VehicleManagement = () => {
                             />
                         </Box>
                     </DialogContent>
-                    <DialogActions>
+                    <DialogActions sx={{ p: 2 }}>
                         <Button onClick={handleClose} disabled={isSubmitting}>
                             Cancel
                         </Button>
@@ -466,6 +469,7 @@ const VehicleManagement = () => {
                 PaperProps={{
                     sx: {
                         bgcolor: 'background.paper',
+                        m: isMobile ? 0 : 2,
                     }
                 }}
             >
