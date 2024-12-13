@@ -91,30 +91,18 @@ The application will open in your default browser at http://localhost:3000
 ## Project Structure
 vehicle-management/<br>
 ├── backend/<br>
-│ ├── models/
-
-│ ├── routes/
-
-│ ├── config/
-
-│ ├── package.json
-
-│ └── server.js
-
-├── frontend/
-
-│ ├── public/
-
-│ ├── src/
-
-│ │ ├── components/
-
-│ │ ├── App.js
-
-│ │ └── index.js
-
-│ └── package.json
-
+│ ├── models/<br>
+│ ├── routes/<br>
+│ ├── config/<br>
+│ ├── package.json<br>
+│ └── server.js<br>
+├── frontend/<br>
+│ ├── public/<br>
+│ ├── src/<br>
+│ │ ├── components/<br>
+│ │ ├── App.js<br>
+│ │ └── index.js<br>
+│ └── package.json<br>
 └── README.md
 
 
