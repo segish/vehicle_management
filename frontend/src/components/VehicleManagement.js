@@ -33,6 +33,8 @@ const VehicleManagement = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [formData, setFormData] = useState({
+        Name: '',
+        status: '',
         make: '',
         model: '',
         year: '',
@@ -40,6 +42,8 @@ const VehicleManagement = () => {
         registrationNumber: ''
     });
     const [errors, setErrors] = useState({
+        Name: '',
+        status: '',
         make: '',
         model: '',
         year: '',
@@ -56,6 +60,8 @@ const VehicleManagement = () => {
     const handleEdit = useCallback((vehicle) => {
         setEditing(vehicle._id);
         setFormData({
+            Name: vehicle.Name,
+            status: vehicle.status,
             make: vehicle.make,
             model: vehicle.model,
             year: vehicle.year,
@@ -66,6 +72,18 @@ const VehicleManagement = () => {
     }, []);
     const getColumns = useCallback(() => {
         const baseColumns = [
+            {
+                field: 'Name',
+                headerName: 'Name',
+                flex: 1,
+                minWidth: 100,
+            },
+            {
+                field: 'status',
+                headerName: 'status',
+                flex: 1,
+                minWidth: 100,
+            },
             {
                 field: 'make',
                 headerName: 'Make',
@@ -94,6 +112,13 @@ const VehicleManagement = () => {
             {
                 field: 'registrationNumber',
                 headerName: 'Registration',
+                flex: 1,
+                minWidth: 120,
+                hide: isMobile,
+            },
+            {
+                field: 'updatedAt',
+                headerName: 'Last Updated',
                 flex: 1,
                 minWidth: 120,
                 hide: isMobile,
@@ -192,6 +217,8 @@ const VehicleManagement = () => {
     };
     const validateForm = () => {
         let tempErrors = {
+            Name: '',
+            status: '',
             make: '',
             model: '',
             year: '',
@@ -199,7 +226,23 @@ const VehicleManagement = () => {
             registrationNumber: ''
         };
         let isValid = true;
+        // name validation
+        if (!formData.Name) {
+            tempErrors.Name = 'Name is required';
+            isValid = false;
+        } else if (formData.Name.length < 2) {
+            tempErrors.Name = 'Name must be at least 2 characters';
+            isValid = false;
+        }
 
+        // status validation
+        if (!formData.status) {
+            tempErrors.status = 'status is required';
+            isValid = false;
+        } else if (formData.status.length < 2) {
+            tempErrors.status = 'status must be at least 2 characters';
+            isValid = false;
+        }
         // Make validation
         if (!formData.make) {
             tempErrors.make = 'Make is required';
@@ -402,6 +445,32 @@ const VehicleManagement = () => {
                             gridTemplateColumns: isTablet ? '1fr' : '1fr 1fr',
                         }}>
                             <TextField
+                                label="Name"
+                                value={formData.Name}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, Name: e.target.value });
+                                    if (errors.Name) setErrors({ ...errors, Name: '' });
+                                }}
+                                required
+                                fullWidth
+                                margin="dense"
+                                error={Boolean(errors.Name)}
+                                helperText={errors.Name}
+                            />
+                            <TextField
+                                label="status"
+                                value={formData.status}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, status: e.target.value });
+                                    if (errors.status) setErrors({ ...errors, status: '' });
+                                }}
+                                required
+                                fullWidth
+                                margin="dense"
+                                error={Boolean(errors.status)}
+                                helperText={errors.status}
+                            />
+                            <TextField
                                 label="Make"
                                 value={formData.make}
                                 onChange={(e) => {
@@ -513,7 +582,7 @@ const VehicleManagement = () => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete the vehicle {selectedVehicle?.make} {selectedVehicle?.model}?
+                        Are you sure you want to delete the vehicle {selectedVehicle?.Name} {selectedVehicle?.model}?
                         This action cannot be undone.
                     </DialogContentText>
                 </DialogContent>
