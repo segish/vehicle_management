@@ -90,16 +90,6 @@ The application will open in your default browser at http://localhost:3000
 
 ## Project Structure
 vehicle-management/
-.
-├── ...
-├── docs                    # Documentation files (alternatively `doc`)
-│   ├── TOC.md              # Table of contents
-│   ├── faq.md              # Frequently asked questions
-│   ├── misc.md             # Miscellaneous information
-│   ├── usage.md            # Getting started guide
-│   └── ...                 # etc.
-└── ...
-
 ├── backend/
 
 │ ├── models/
