@@ -89,9 +89,8 @@ The application will open in your default browser at http://localhost:3000
 - DELETE `/api/vehicles/:id` - Delete a vehicle
 
 ## Project Structure
-vehicle-management/
-├── backend/
-
+vehicle-management/<br>
+├── backend/<br>
 │ ├── models/
 
 │ ├── routes/
