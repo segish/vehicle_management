@@ -185,7 +185,7 @@ const VehicleManagement = () => {
 
     const fetchVehicles = async () => {
         try {
-            const response = await axios.get('https://vehicle-management-ncqd.onrender.com/api/vehicles');
+            const response = await axios.get('http://localhost:5000/api/vehicles');
             const vehiclesWithId = response.data.map(vehicle => ({
                 ...vehicle,
                 id: vehicle._id
@@ -297,9 +297,9 @@ const VehicleManagement = () => {
         setIsSubmitting(true);
         try {
             if (editing) {
-                await axios.put(`https://vehicle-management-ncqd.onrender.com/api/vehicles/${editing}`, formData);
+                await axios.put(`http://localhost:5000/api/vehicles/${editing}`, formData);
             } else {
-                await axios.post('https://vehicle-management-ncqd.onrender.com/api/vehicles', formData);
+                await axios.post('http://localhost:5000/api/vehicles', formData);
             }
             handleClose();
             fetchVehicles();
@@ -314,7 +314,7 @@ const VehicleManagement = () => {
     const handleDeleteConfirm = async () => {
         setIsDeleting(true);
         try {
-            await axios.delete(`https://vehicle-management-ncqd.onrender.com/api/vehicles/${selectedVehicle._id}`);
+            await axios.delete(`http://localhost:5000/api/vehicles/${selectedVehicle._id}`);
             setDeleteConfirmOpen(false);
             setSelectedVehicle(null);
             fetchVehicles();
