@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
 
 const vehicleSchema = new mongoose.Schema({
-    make: {
+    Name: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true
+    },
+    Make: {
         type: String,
         required: true
     },
