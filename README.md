@@ -92,20 +92,31 @@ The application will open in your default browser at http://localhost:3000
 vehicle-management/
 
 ├── backend/
+
 │ ├── models/
+
 │ ├── routes/
 
 │ ├── config/
 
 │ ├── package.json
+
 │ └── server.js
+
 ├── frontend/
+
 │ ├── public/
+
 │ ├── src/
+
 │ │ ├── components/
+
 │ │ ├── App.js
+
 │ │ └── index.js
+
 │ └── package.json
+
 └── README.md
 
 
