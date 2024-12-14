@@ -32,6 +32,7 @@ const VehicleManagement = () => {
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({
         Name: '',
         status: '',
@@ -183,6 +184,7 @@ const VehicleManagement = () => {
 
     const fetchVehicles = async () => {
         try {
+            setLoading(true);
             const response = await axios.get('http://localhost:5000/api/vehicles');
             const vehiclesWithId = response.data.map(vehicle => ({
                 ...vehicle,
@@ -191,6 +193,8 @@ const VehicleManagement = () => {
             setVehicles(vehiclesWithId);
         } catch (error) {
             console.error('Error fetching vehicles:', error);
+        } finally {
+            setLoading(false); // Set loading to false after fetching
         }
     };
 
@@ -367,6 +371,7 @@ const VehicleManagement = () => {
                             quickFilterProps: { debounceMs: 500 },
                         },
                     }}
+                    loading={loading} 
                     slots={{ toolbar: GridToolbar }}
                     slotProps={{
                         toolbar: {
